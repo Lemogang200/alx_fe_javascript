@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dynamic Quote Generator</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Dynamic Quote Generator — Sync Demo</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 900px; margin: 24px auto; padding: 0 16px; }
-    h1 { text-align: center; }
-    #quoteCard { padding: 16px; border-radius: 8px; background: #f7f7f7; margin-bottom: 12px; }
-    .controls { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+    body { font-family: Arial, sans-serif; max-width:900px; margin:24px auto; padding:0 16px; }
+    h1 { text-align:center; }
+    #quoteCard { padding:16px; border-radius:8px; background:#f7f7f7; margin-bottom:12px; }
+    .controls { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; align-items:center; }
     input[type="text"], select { padding:8px; border-radius:6px; border:1px solid #ccc; }
-    button { padding:8px 12px; border-radius:6px; border: none; cursor:pointer; background:#007bff; color:white; }
+    button { padding:8px 12px; border-radius:6px; border:none; cursor:pointer; background:#007bff; color:#fff; }
     button.secondary { background:#6c757d; }
     button.danger { background:crimson; }
     #quoteList .quote-row { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px; border-bottom:1px solid #eee; }
@@ -18,39 +18,62 @@
     .small { font-size:0.9rem; padding:6px 8px; }
     label.file-label { display:inline-block; padding:8px 12px; background:#28a745; color:#fff; border-radius:6px; cursor:pointer; }
     input[type="file"] { display:none; }
+
+    /* Sync / notification */
+    #syncStatus { margin-left:8px; font-size:0.95rem; color:#333; }
+    #notification { margin:10px 0; padding:10px; border-radius:6px; display:none; }
+    #notification.info { background:#e7f3ff; color:#0b57b7; }
+    #notification.warn { background:#fff4e5; color:#7a5000; }
+
+    /* conflict modal / box */
+    #conflictBox { display:none; position:fixed; left:50%; top:12%; transform:translateX(-50%); width:90%; max-width:720px; background:#fff; border:1px solid #ccc; box-shadow:0 8px 32px rgba(0,0,0,0.15); z-index:2000; padding:16px; border-radius:8px; }
+    #conflictBox h3 { margin-top:0; }
+    .conflict-item { border-bottom:1px solid #eee; padding:8px 0; display:flex; gap:12px; align-items:flex-start; }
+    .conflict-side { flex:1; }
+    .conflict-actions { display:flex; gap:8px; align-items:center; }
+    .overlay { display:none; position:fixed; left:0; right:0; top:0; bottom:0; background:rgba(0,0,0,0.35); z-index:1500; }
+
   </style>
 </head>
 <body>
-  <h1>Dynamic Quote Generator</h1>
+  <h1>Dynamic Quote Generator — Sync Demo</h1>
 
-  <!-- Display area for a single quote -->
   <div id="quoteCard">
     <div id="quoteDisplay"><em>No quote yet — click "Show New Quote".</em></div>
   </div>
 
   <div class="controls">
     <button id="newQuote">Show New Quote</button>
-    <button id="showAll" class="secondary">Show All Quotes</button>
-    <select id="categoryFilter">
+    <button id="syncNow" class="secondary">Sync Now</button>
+    <div id="syncStatus">Sync: <span id="syncIndicator">idle</span></div>
+    <select id="categoryFilter" style="margin-left:auto;">
       <option value="all">All Categories</option>
     </select>
-    <button id="exportBtn" class="secondary">Export Quotes</button>
-    <label class="file-label">
-      Import JSON
-      <input id="importFile" type="file" accept=".json,application/json" />
-    </label>
   </div>
 
-  <!-- Add new quote inputs -->
   <div style="margin-bottom:16px;">
     <input id="newQuoteText" type="text" placeholder="Enter a new quote" style="width:60%;" />
     <input id="newQuoteCategory" type="text" placeholder="Enter quote category" style="width:25%;" />
     <button id="addBtn" class="small">Add Quote</button>
   </div>
 
-  <!-- List of all stored quotes with remove buttons -->
+  <div id="notification" class="info"></div>
+
   <h2>Stored Quotes</h2>
   <div id="quoteList"></div>
+
+  <!-- Conflict resolution modal -->
+  <div class="overlay" id="overlay"></div>
+  <div id="conflictBox" aria-hidden="true">
+    <h3>Sync Conflicts Detected</h3>
+    <p>Conflicts were detected between your local data and the server. Choose which version to keep for each item.</p>
+    <div id="conflictsContainer"></div>
+    <div style="margin-top:12px; text-align:right;">
+      <button id="resolveAllServer" class="secondary">Keep Server Versions (apply all)</button>
+      <button id="resolveAllLocal" class="secondary">Keep Local Versions (apply all)</button>
+      <button id="closeConflicts" style="margin-left:8px;">Close</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
