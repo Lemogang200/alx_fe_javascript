@@ -215,7 +215,7 @@ function mergeServerIntoLocal(serverArr) {
 }
 
 // Main sync operation (fetch, detect, handle)
-async function performSync(showNotifications = true) {
+async function syncQuotes(showNotifications = true) {
   try {
     syncIndicator.textContent = 'syncing...';
     setSyncStatus('Syncing with server...', 'info');
@@ -338,8 +338,8 @@ function initApp() {
   else if (quotes.length) renderQuote(quotes[0]);
 
   // start periodic sync
-  SyncQuotes(false); // initial silent sync attempt
-  setInterval(() => SyncQuotes(false), SERVER_POLL_INTERVAL_MS);
+  syncQuotes(false); // initial silent sync attempt
+  setInterval(() => syncQuotes(false), SERVER_POLL_INTERVAL_MS);
 
   // wire events
   newQuoteBtn.onclick = () => {
@@ -361,7 +361,7 @@ function initApp() {
     newQuoteText.value = ''; newQuoteCategory.value = '';
     setSyncStatus('Quote added locally. Will sync soon.', 'info');
   };
-  syncNowBtn.onclick = () => SyncQuotes(true);
+  syncNowBtn.onclick = () => syncQuotes(true);
   categoryFilter.onchange = () => { localStorage.setItem(LS_FILTER, categoryFilter.value); refreshQuoteList(); };
 }
 
