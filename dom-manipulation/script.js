@@ -234,7 +234,7 @@ async function syncQuotes(showNotifications = true) {
       // No conflicts: simply merge additions
       mergeServerIntoLocal(serverData);
       saveLocal();
-      if (showNotifications) setSyncStatus('Synced successfully.', 'info');
+      if (showNotifications) setSyncStatus("Quotes synced with server!");
     }
     lastSyncAt = new Date().toLocaleTimeString();
     syncIndicator.textContent = `last: ${lastSyncAt}`;
