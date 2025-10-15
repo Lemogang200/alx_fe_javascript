@@ -4,24 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dynamic Quote Generator</title>
-  <style>
-    body { font-family: Arial, sans-serif; max-width: 900px; margin: 24px auto; padding: 0 16px; }
-    h1 { text-align: center; }
-    #quoteCard { padding: 16px; border-radius: 8px; background: #f7f7f7; margin-bottom: 12px; }
-    .controls { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
-    input[type="text"] { padding:8px; border-radius:6px; border:1px solid #ccc; }
-    button { padding:8px 12px; border-radius:6px; border: none; cursor:pointer; background:#007bff; color:white; }
-    button.secondary { background:#6c757d; }
-    button.danger { background:crimson; }
-    #quoteList .quote-row { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px; border-bottom:1px solid #eee; }
-    #quoteList .meta { color:#555; font-size:0.9rem; }
-    .small { font-size:0.9rem; padding:6px 8px; }
-    label.file-label { display:inline-block; padding:8px 12px; background:#28a745; color:#fff; border-radius:6px; cursor:pointer; }
-    input[type="file"] { display:none; }
-  </style>
 </head>
 <body>
-  <h1>Dynamic Quote Generator</h1>
 
   <!-- Display area for a single quote -->
   <div id="quoteCard">
@@ -31,7 +15,7 @@
   <div class="controls">
     <button id="newQuote">Show New Quote</button>
     <button id="showAll" class="secondary">Show All Quotes</button>
-    <button id="exportBtn" class="secondary">Export JSON</button>
+    <button id="exportBtn" class="secondary">Export Quotes</button>
 
     <!-- styled file input for import -->
     <label class="file-label">
