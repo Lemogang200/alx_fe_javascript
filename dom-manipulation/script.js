@@ -143,7 +143,7 @@ function mapServerToQuote(serverItem) {
 }
 
 // Fetch server-side quotes (mock)
-async function fetchServerQuotes() {
+async function fetchQuotesFromServer() {
   // For a real API you'd GET e.g. /api/quotes
   const res = await fetch(SERVER_ENDPOINT);
   if (!res.ok) throw new Error('Server fetch failed: ' + res.status);
@@ -219,7 +219,7 @@ async function performSync(showNotifications = true) {
   try {
     syncIndicator.textContent = 'syncing...';
     setSyncStatus('Syncing with server...', 'info');
-    const serverData = await fetchServerQuotes();
+    const serverData = await fetchQuotesFromServer();
     lastSyncAt = new Date().toLocaleTimeString();
     // Detect conflicts
     const conflicts = detectConflicts(quotes, serverData);
