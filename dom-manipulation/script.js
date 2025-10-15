@@ -86,13 +86,13 @@ function showRandomQuote() {
     quoteDisplay.textContent = 'No quotes available.';
     return;
   }
-  const selectedCat = categoryFilter.value;
-  const filtered = selectedCat === 'all'
+  const selectedCategory = categoryFilter.value;
+  const filtered = selectedCategory === 'all'
     ? quotes
-    : quotes.filter(q => q.category === selectedCat);
+    : quotes.filter(q => q.category === selectedCategory);
 
   if (!filtered.length) {
-    quoteDisplay.textContent = `No quotes found in "${selectedCat}" category.`;
+    quoteDisplay.textContent = `No quotes found in "${selectedCategory}" category.`;
     return;
   }
 
