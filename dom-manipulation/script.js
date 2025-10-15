@@ -338,8 +338,8 @@ function initApp() {
   else if (quotes.length) renderQuote(quotes[0]);
 
   // start periodic sync
-  performSync(false); // initial silent sync attempt
-  setInterval(() => performSync(false), SERVER_POLL_INTERVAL_MS);
+  SyncQuotes(false); // initial silent sync attempt
+  setInterval(() => SyncQuotes(false), SERVER_POLL_INTERVAL_MS);
 
   // wire events
   newQuoteBtn.onclick = () => {
@@ -361,7 +361,7 @@ function initApp() {
     newQuoteText.value = ''; newQuoteCategory.value = '';
     setSyncStatus('Quote added locally. Will sync soon.', 'info');
   };
-  syncNowBtn.onclick = () => performSync(true);
+  syncNowBtn.onclick = () => SyncQuotes(true);
   categoryFilter.onchange = () => { localStorage.setItem(LS_FILTER, categoryFilter.value); refreshQuoteList(); };
 }
 
