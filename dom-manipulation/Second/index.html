@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic Quote Generator</title>
+</head>
+<body>
+
+  <!-- Display area for a single quote -->
+  <div id="quoteCard">
+    <div id="quoteDisplay"><em>No quote yet — click "Show New Quote".</em></div>
+  </div>
+
+  <div class="controls">
+    <button id="newQuote">Show New Quote</button>
+    <button id="showAll" class="secondary">Show All Quotes</button>
+    <button id="exportBtn" class="secondary">Export Quotes</button>
+
+    <!-- styled file input for import -->
+    <label class="file-label">
+      Import JSON
+      <input id="importFile" type="file" accept=".json,application/json" />
+    </label>
+  </div>
+
+  <!-- Add new quote inputs -->
+  <div style="margin-bottom:16px;">
+    <input id="newQuoteText" type="text" placeholder="Enter a new quote" style="width:60%;" />
+    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" style="width:25%;" />
+    <button id="addBtn" class="small">Add Quote</button>
+  </div>
+
+  <!-- List of all stored quotes with remove buttons -->
+  <h2>Stored Quotes</h2>
+  <div id="quoteList"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
